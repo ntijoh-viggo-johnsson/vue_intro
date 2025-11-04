@@ -1,24 +1,32 @@
 <script setup lang="ts">
 import TodoItem from './components/TodoItem.vue';
+import TodoList from './components/TodoList.vue';
 import type { Todo } from './types'
+import { ref } from 'vue'
 
-const todo1: Todo = { id: 1, text: "Lära mig Vue", completed: false }
-const todo2: Todo = { id: 2, text: "Bygga todo-app", completed: false }
-const todo3: Todo = { id: 3, text: "Bli Vue-expert", completed: true }
+const todos = ref<Todo[]>([
+  { id: 1, text: "Lära mig Vue", completed: false },
+  { id: 2, text: "Bygga todo-app", completed: false },
+  { id: 3, text: "Bli Vue-expert", completed: true }
+  
+])
 
 function handleDelete(id : number) {
-    console.log(`Delete event for ${id} recieved`)
+  todos.value = todos.value.filter(t => t.id !== id)
 }
 
   function handleToggle(id : number) {
-    console.log(`Toggle event for ${id} recieved`)
+    const todo = todos.value.find(t => t.id === id)
+    if (todo) {
+      todo.completed = !todo.completed
+    }
   }
 </script>
 
 <template>
-  <TodoItem @delete="handleDelete" @toggleCompletion="handleToggle" :todo="todo1" />
-  <TodoItem @delete="handleDelete" @toggleCompletion="handleToggle" :todo="todo2" />
-  <TodoItem @delete="handleDelete" @toggleCompletion="handleToggle" :todo="todo3" />
+  <TodoList :todos="todos"
+  @delete="handleDelete"
+  @toggleCompletion="handleToggle"/>
 </template>
 
 <style scoped>
