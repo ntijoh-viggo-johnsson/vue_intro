@@ -1,9 +1,24 @@
 <script setup lang="ts">
-import HelloWorld from './components/HelloWorld.vue'
+import TodoItem from './components/TodoItem.vue';
+import type { Todo } from './types'
+
+const todo1: Todo = { id: 1, text: "Lära mig Vue", completed: false }
+const todo2: Todo = { id: 2, text: "Bygga todo-app", completed: false }
+const todo3: Todo = { id: 3, text: "Bli Vue-expert", completed: true }
+
+function handleDelete(id : number) {
+    console.log(`Delete event for ${id} recieved`)
+}
+
+  function handleToggle(id : number) {
+    console.log(`Toggle event for ${id} recieved`)
+  }
 </script>
 
 <template>
-  <HelloWorld msg="Hello World!" banan="glass"/>
+  <TodoItem @delete="handleDelete" @toggleCompletion="handleToggle" :todo="todo1" />
+  <TodoItem @delete="handleDelete" @toggleCompletion="handleToggle" :todo="todo2" />
+  <TodoItem @delete="handleDelete" @toggleCompletion="handleToggle" :todo="todo3" />
 </template>
 
 <style scoped>
