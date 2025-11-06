@@ -3,8 +3,8 @@ import type { Todo } from '../types'
 
 const props = defineProps<{ todo: Todo }>()
 const emit = defineEmits < {
-    toggleCompletion: [id: number]
-    delete: [id: number]
+    toggleCompletion: [id: string]
+    delete: [id: string]
 }>()
 
 function handleToggle() {

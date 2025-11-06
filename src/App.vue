@@ -1,29 +1,43 @@
 <script setup lang="ts">
 import TodoItem from './components/TodoItem.vue';
 import TodoList from './components/TodoList.vue';
+import TodoInput from './components/TodoInput.vue';
 import type { Todo } from './types'
 import { ref } from 'vue'
+import { v7 as uuid} from 'uuid'
 
 const todos = ref<Todo[]>([
-  { id: 1, text: "Lära mig Vue", completed: false },
-  { id: 2, text: "Bygga todo-app", completed: false },
-  { id: 3, text: "Bli Vue-expert", completed: true }
+  { id: uuid(), text: "Lära mig Vue", completed: false },
+  { id: uuid(), text: "Bygga todo-app", completed: false },
+  { id: uuid(), text: "Bli Vue-expert", completed: true }
   
 ])
 
-function handleDelete(id : number) {
+function handleDelete(id : string) {
   todos.value = todos.value.filter(t => t.id !== id)
 }
 
-  function handleToggle(id : number) {
+  function handleToggle(id : string) {
     const todo = todos.value.find(t => t.id === id)
     if (todo) {
       todo.completed = !todo.completed
     }
   }
+
+function addTodo(text: string) {
+  const newTodo: Todo = {
+    id: uuid(),
+    text: text,
+      completed: false
+  }
+    todos.value.push(newTodo)
+}
+
+  console.log(uuid)
 </script>
 
 <template>
+  <TodoInput @addTodo="addTodo"/>
   <TodoList :todos="todos"
   @delete="handleDelete"
   @toggleCompletion="handleToggle"/>
