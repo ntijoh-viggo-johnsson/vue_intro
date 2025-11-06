@@ -16,7 +16,7 @@ const filterStatus = ref<'all' | 'active' | 'completed'>('all')
 
 const filteredTodos = computed(() => {
     let result = props.todos
-    if (searchTerm.value === '') {
+    if (searchTerm.value.trim() === '') {
         result = props.todos
     }
     result = props.todos.filter(todo => 
