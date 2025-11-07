@@ -21,6 +21,7 @@ function handleDelete() {
         <span :class="{completed: todo.completed}">{{ todo.text }}</span>
         <input type="checkbox" :checked="props.todo.completed" @change="handleToggle"></input>
         <button @click="handleDelete">Delete</button>
+        <router-link :to="{ name: 'todosDetail', params: { id: todo.id } }">  Detaljer </router-link>
     </div>
 </template>
 

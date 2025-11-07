@@ -6,7 +6,6 @@ export function useTodos() {
     const todos = ref<Todo[]>([])
     const loading = ref<boolean>(false)
     const error = ref<string | null>(null)
-    const add = ref<string | null>(null)
     const currentOperation = ref<string | null>(null)
 
   // Bas-URL för API
